@@ -22,10 +22,12 @@ RUN dpkg-reconfigure -f noninteractive tzdata
 
 RUN useradd -r -U -u 1000 flax \
 &&  usermod -aG sudo flax \
-&& install -o flax -g flax -m 755 -d /home/flax \
+&& install -o flax -g flax -m 755 -d /home/flax/ \
+&& install -o flax -g flax -m 755 -d /home/flax/.local \
 && sed -i -e 's/ALL$/NOPASSWD:ALL/' /etc/sudoers
 # Stupid ass sudo in the install.sh
 
+VOLUME /home/flax/.local
 WORKDIR /home/flax
 USER 1000
 

@@ -1,5 +1,8 @@
 version: '3.4'
 
+volumes:
+    sekrit:
+
 services:
     fullnode:
         image: flax
@@ -8,12 +11,13 @@ services:
             - "6885:6885"
             - "6888:6888"
         volumes:
+            - sekrit:/home/flax/.local
             - /mnt/chia_plots/0:/chia_plots0
             - /mnt/chia_plots/1:/chia_plots1
             - /mnt/mobile_plots/10:/mobile_plots10
             - /home/aarmcm/.flax:/home/flax/.flax
         environment:
-            keys: prompt
+            keys: none
             log_level: INFO
             plots_dir: /chia_plots0:/chia_plots1:/mobile_plots10
         # Make interactive -- Attach to provide keys
