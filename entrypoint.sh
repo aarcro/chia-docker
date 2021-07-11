@@ -1,9 +1,7 @@
 if [[ -n "${TZ}" ]]; then
   echo "Setting timezone to ${TZ}"
-  ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+  sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ | sudo tee /etc/timezone
 fi
-
-cd /chia-blockchain
 
 . ./activate
 
@@ -33,6 +31,8 @@ done
 
 sed -i 's/localhost/127.0.0.1/g' ~/.chia/mainnet/config/config.yaml
 
+chia configure --set-log-level ${log_level}
+
 if [[ ${farmer} == 'true' ]]; then
   chia start farmer-only
 elif [[ ${harvester} == 'true' ]]; then
@@ -55,4 +55,4 @@ if [[ ${testnet} == "true" ]]; then
   fi
 fi
 
-while true; do sleep 30; done;
+tail -F ~/.chia/mainnet/log/debug.log
