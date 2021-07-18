@@ -29,7 +29,7 @@ RUN useradd -r -U -u 1000 chia \
 WORKDIR /home/chia
 USER 1000
 
-RUN echo "cloning ${BRANCH} again"
+RUN echo "cloning ${BRANCH} 1.2.2"
 RUN git clone --branch ${BRANCH} https://github.com/aarcro/chia-blockchain.git \
 && cd chia-blockchain \
 && git submodule update --init mozilla-ca \
