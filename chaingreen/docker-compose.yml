@@ -23,7 +23,7 @@ services:
         environment:
             keys: none
             log_level: INFO
-            node: "true"
+            node: "false"  # Run the farmer now
             plots_dir: /chia_plots0:/chia_plots1:/mobile_plots10
         # Make interactive -- Attach to provide keys
         stdin_open: true
@@ -40,7 +40,7 @@ services:
             harvester: "true"
             keys: copy
             farmer_address: fullnode
-            farmer_port: 6885
+            farmer_port: 8777
             ca: /ca
             log_level: INFO
 
