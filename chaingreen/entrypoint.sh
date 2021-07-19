@@ -63,4 +63,7 @@ if [[ ${testnet} == "true" ]]; then
 fi
 
 # Wait forever
-cat > /dev/null
+echo "Going to sleep"
+tail -f /dev/null
+# cat > /dev/null
+echo "Why ded?"
