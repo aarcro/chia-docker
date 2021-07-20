@@ -55,4 +55,10 @@ if [[ ${testnet} == "true" ]]; then
   fi
 fi
 
+if [[ -n ${satellite_key} ]]; then
+  mkdir -p ~/.config/chia-dashboard-satellite
+  envsubst < satellite.config.yaml > ~/.config/chia-dashboard-satellite/config.yaml
+  chia-dashboard-satellite > ~/chia-dashboard-satellite.log 2>&1 &
+fi
+
 tail -F ~/.chia/mainnet/log/debug.log

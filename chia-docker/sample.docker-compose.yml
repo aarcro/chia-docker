@@ -1,0 +1,32 @@
+version: '3.4'
+
+# Multiple docker harvesters, farmer on host
+
+services:
+    plots: &plots
+        build: .
+        image: chia
+        user: "${CURRENT_UID:-1000:1000}"
+        volumes:
+            - /mnt/plots:/plots
+            - /home/user/.chia/mainnet/config/ssl/ca:/ca  # Config on host
+            - /home/user/.chia-plots:/home/chia/.chia     # New Config dir for container
+        environment: &env
+            harvester: "true"
+            keys: copy
+            farmer_address: 192.168.0.1
+            farmer_port: 8447
+            ca: /ca
+            log_level: INFO
+            satellite_region: "${satellite_region:-us}"
+            satellite_key: ""
+
+    plots2:
+        <<: *plots
+        volumes:
+            - /mnt/plots2:/plots
+            - /home/aarmcm/.chia/mainnet/config/ssl/ca:/ca
+            - /home/aarmcm/.chia-plots2:/home/chia/.chia
+        environment:
+            <<: *env
+            satellite_key: ""

@@ -15,7 +15,7 @@ ENV TZ="UTC"
 ENV log_level="WARNING"
 ARG BRANCH=latest
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y curl jq python3 ansible tar bash ca-certificates git openssl unzip wget python3-pip sudo acl build-essential python3-dev python3.8-venv python3.8-distutils apt nfs-common python-is-python3 vim tzdata
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y gettext curl jq python3 ansible tar bash ca-certificates git openssl unzip wget python3-pip sudo acl build-essential python3-dev python3.8-venv python3.8-distutils apt nfs-common python-is-python3 vim tzdata npm && apt-get clean
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
@@ -36,8 +36,16 @@ RUN git clone --branch ${BRANCH} https://github.com/aarcro/chia-blockchain.git \
 && chmod +x install.sh \
 && /usr/bin/sh ./install.sh
 
+USER 0
+RUN npm install --global npm
+RUN npm install --global chia-dashboard-satellite
+
+USER 1000
+
 ENV PATH=/home/chia/chia-blockchain/venv/bin/:$PATH
 WORKDIR /home/chia/chia-blockchain
+
+ADD --chown=1000:1000 ./satellite.config.yaml satellite.config.yaml
 ADD --chown=1000:1000 ./entrypoint.sh entrypoint.sh
 
 ENTRYPOINT ["bash", "./entrypoint.sh"]
