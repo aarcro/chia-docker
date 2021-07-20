@@ -61,4 +61,7 @@ if [[ -n ${satellite_key} ]]; then
   chia-dashboard-satellite > ~/chia-dashboard-satellite.log 2>&1 &
 fi
 
-tail -F ~/.chia/mainnet/log/debug.log
+# Wait forever
+echo "Going to sleep"
+tail -f /dev/null
+echo "Why ded?"
