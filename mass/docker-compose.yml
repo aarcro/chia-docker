@@ -1,0 +1,61 @@
+version: '3.4'
+
+volumes:
+    sekrit:
+
+services:
+    fullnode:
+        build:
+            context: .
+        image: mass
+        user: "${CURRENT_UID:-1000:1000}"
+        ports:
+            - "9685:9685"  # gRPC
+            - "9686:9686"  # HTTP
+        volumes:
+            - sekrit:/home/mass/.local
+            - /mnt/chia_plots/0:/chia_plots0
+            - /mnt/chia_plots/1:/chia_plots1
+            - /mnt/mobile_plots/10:/mobile_plots10
+            - /home/aarmcm/.mass:/home/mass/.mass
+        environment:
+            keys: none
+            log_level: INFO
+            node: "false"  # Run the farmer now
+            plots_dir: /chia_plots0:/chia_plots1:/mobile_plots10
+        # Make interactive -- Attach to provide keys
+        stdin_open: true
+        tty: true
+
+    plots: &plots
+        image: mass
+        user: "${CURRENT_UID:-1000:1000}"
+        volumes:
+            - /g-plots/plots:/plots
+            - /home/aarmcm/.mass/mainnet/config/ssl/ca:/ca
+            - /home/aarmcm/.mass-plots:/home/mass/.mass
+        environment:
+            log_level: INFO
+
+x-blah: '''
+    plots2:
+        <<: *plots
+        volumes:
+            - /g-plots/plots2:/plots
+            - /home/aarmcm/.mass/mainnet/config/ssl/ca:/ca
+            - /home/aarmcm/.mass-plots2:/home/mass/.mass
+
+    plots3:
+        <<: *plots
+        volumes:
+            - /g-plots/plots3:/plots
+            - /home/aarmcm/.mass/mainnet/config/ssl/ca:/ca
+            - /home/aarmcm/.mass-plots3:/home/mass/.mass
+
+    plots4:
+        <<: *plots
+        volumes:
+            - /g-plots/plots4:/plots
+            - /home/aarmcm/.mass/mainnet/config/ssl/ca:/ca
+            - /home/aarmcm/.mass-plots4:/home/mass/.mass
+    '''
