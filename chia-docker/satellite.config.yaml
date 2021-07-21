@@ -1,0 +1,3 @@
+chiaConfigDirectory: /home/chia/.chia/mainnet
+apiKey: ${satellite_key}
+chiaDashboardCoreUrl: https://${satellite_region}.chiadashboard.com

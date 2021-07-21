@@ -1,7 +1,9 @@
 FROM ubuntu:latest
 
-EXPOSE 9685
-EXPOSE 9686
+# Node
+EXPOSE 43453
+# Wallet
+EXPOSE 43454
 
 ENV plots_dir="/plots"
 ENV TZ="UTC"
@@ -25,8 +27,9 @@ USER 1000
 
 ENV PATH=/home/mass/bin/:$PATH
 WORKDIR /home/mass/
-ADD --chown=1000:1000 ./massminercli bin/
-ADD --chown=1000:1000 ./massminer bin/
-ADD --chown=1000:1000 ./entrypoint.sh entrypoint.sh
+ADD --chown=1000:1000 ./bin/* bin/
+ADD --chown=1000:1000 ./wallet-config.json .
+ADD --chown=1000:1000 ./miner-config.json .
+ADD --chown=1000:1000 ./entrypoint.sh .
 
 ENTRYPOINT ["bash", "./entrypoint.sh"]

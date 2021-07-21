@@ -12,6 +12,9 @@ for p in ${plots_dir//:/ }; do
     echo "Plots are here: ${p}"
 done
 
+export PATH=~/bin:${PATH}
+masswallet -C wallet-config.json 2>&1 | /dev/null &
+
 # Wait forever
 echo "Going to sleep"
 tail -f /dev/null
