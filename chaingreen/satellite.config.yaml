@@ -1,0 +1,5 @@
+chiaConfigDirectory: /home/chaingreen/.chaingreen/mainnet
+apiKey: ${satellite_key}
+chiaDashboardCoreUrl: https://${satellite_region}.chiadashboard.com
+excludedServices:
+  - plotter
