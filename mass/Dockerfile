@@ -9,7 +9,7 @@ ENV plots_dir="/plots"
 ENV TZ="UTC"
 ENV log_level="WARNING"
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y less curl jq tar bash ca-certificates openssl unzip wget sudo acl apt vim tzdata && apt-get clean
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y gettext less curl jq tar bash ca-certificates openssl unzip wget sudo acl apt vim tzdata && apt-get clean
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata

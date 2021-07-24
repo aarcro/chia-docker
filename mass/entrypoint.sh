@@ -3,17 +3,14 @@ if [[ -n "${TZ}" ]]; then
   sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ | sudo tee /etc/timezone
 fi
 
-# What do?
-for p in ${plots_dir//:/ }; do
-    mkdir -p ${p}
-    if [[ ! "$(ls -A $p)" ]]; then
-        echo "Plots directory '${p}' appears to be empty, try mounting a plot directory with the docker -v command"
-    fi
-    echo "Plots are here: ${p}"
-done
+if [[ -n ${payout_address} ]]; then
+  envsubst < miner-config.json > mc.json
+  mv mc.json miner-config.json
+fi
 
 export PATH=~/bin:${PATH}
-masswallet -C wallet-config.json 2>&1 | /dev/null &
+masswallet -C wallet-config.json 2>&1 > /dev/null &
+massminer -C miner-config.json m2 &
 
 # Wait forever
 echo "Going to sleep"
