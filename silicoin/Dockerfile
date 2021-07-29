@@ -25,32 +25,32 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y nodejs &
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
-RUN useradd -r -U -u 1000 flax \
-&&  usermod -aG sudo flax \
-&& install -o flax -g flax -m 755 -d /home/flax/ \
-&& install -o flax -g flax -m 755 -d /home/flax/.local \
+RUN useradd -r -U -u 1000 silicoin \
+&&  usermod -aG sudo silicoin \
+&& install -o silicoin -g silicoin -m 755 -d /home/silicoin/ \
+&& install -o silicoin -g silicoin -m 755 -d /home/silicoin/.local \
 && sed -i -e 's/ALL$/NOPASSWD:ALL/' /etc/sudoers
 # Stupid ass sudo in the install.sh
 
-VOLUME /home/flax/.local
-WORKDIR /home/flax
+VOLUME /home/silicoin/.local
+WORKDIR /home/silicoin
 USER 1000
 
 RUN echo "cloning ${BRANCH} again"
-RUN git clone --branch ${BRANCH} https://github.com/Flax-Network/flax-blockchain.git \
-&& cd flax-blockchain \
+RUN git clone --branch ${BRANCH} https://github.com/Flax-Network/silicoin-blockchain.git \
+&& cd silicoin-blockchain \
 && git submodule update --init mozilla-ca \
 && chmod +x install.sh \
 && /usr/bin/sh ./install.sh
 
 USER 0
 RUN npm install --global npm
-RUN npm install --global flax-dashboard-satellite
+RUN npm install --global chia-dashboard-satellite
 
 USER 1000
 
-ENV PATH=/home/flax/flax-blockchain/venv/bin/:$PATH
-WORKDIR /home/flax/flax-blockchain
+ENV PATH=/home/silicoin/silicoin-blockchain/venv/bin/:$PATH
+WORKDIR /home/silicoin/silicoin-blockchain
 
 ADD --chown=1000:1000 ./satellite.config.yaml satellite.config.yaml
 ADD --chown=1000:1000 ./entrypoint.sh entrypoint.sh

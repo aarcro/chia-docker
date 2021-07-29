@@ -1,3 +1,5 @@
-chiaConfigDirectory: /home/flax/.flax/mainnet
+chiaConfigDirectory: /home/silicoin/.silicoin/mainnet
 apiKey: ${satellite_key}
 chiaDashboardCoreUrl: https://${satellite_region}.chiadashboard.com
+excludedServices:
+  - plotter
