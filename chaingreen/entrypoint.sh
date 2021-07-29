@@ -63,9 +63,9 @@ if [[ ${testnet} == "true" ]]; then
 fi
 
 if [[ -n ${satellite_key} ]]; then
-  mkdir -p ~/.config/chia-dashboard-satellite
-  envsubst < satellite.config.yaml > ~/.config/chia-dashboard-satellite/config.yaml
-  chia-dashboard-satellite > ~/chia-dashboard-satellite.log 2>&1 &
+  mkdir -p ~/.config/chaingreen-dashboard-satellite
+  envsubst < satellite.config.yaml > ~/.config/chaingreen-dashboard-satellite/config.yaml
+  chaingreen-dashboard-satellite > ~/chaingreen-dashboard-satellite.log 2>&1 &
 fi
 
 # Wait forever
