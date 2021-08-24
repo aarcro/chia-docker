@@ -36,7 +36,7 @@ VOLUME /home/flax/.local
 WORKDIR /home/flax
 USER 1000
 
-RUN echo "cloning ${BRANCH} again"
+RUN echo "cloning ${BRANCH} (0.1.1)"
 RUN git clone --branch ${BRANCH} https://github.com/Flax-Network/flax-blockchain.git \
 && cd flax-blockchain \
 && git submodule update --init mozilla-ca \
@@ -45,6 +45,7 @@ RUN git clone --branch ${BRANCH} https://github.com/Flax-Network/flax-blockchain
 
 USER 0
 RUN npm install --global npm
+RUN echo "1.11 or something"
 RUN npm install --global flax-dashboard-satellite
 
 USER 1000

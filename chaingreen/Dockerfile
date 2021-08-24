@@ -45,7 +45,7 @@ RUN git clone --depth 1 --branch ${BRANCH} https://github.com/ChainGreenOrg/chai
 
 USER 0
 RUN npm install --global npm
-RUN npm install --global chaingreen-dashboard-satellite
+RUN npm install --global chaingreen-dashboard-satellite ; echo "1.11 or some shit"
 
 USER 1000
 

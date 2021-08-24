@@ -1,8 +1,5 @@
 FROM ubuntu:latest
 
-EXPOSE 8555
-EXPOSE 8444
-
 ENV keys="generate"
 ENV harvester="false"
 ENV farmer="false"
@@ -37,7 +34,7 @@ WORKDIR /home/silicoin
 USER 1000
 
 RUN echo "cloning ${BRANCH} again"
-RUN git clone --branch ${BRANCH} https://github.com/Flax-Network/silicoin-blockchain.git \
+RUN git clone --branch ${BRANCH} https://github.com/silicoin-network/silicoin-blockchain.git \
 && cd silicoin-blockchain \
 && git submodule update --init mozilla-ca \
 && chmod +x install.sh \
@@ -52,7 +49,9 @@ USER 1000
 ENV PATH=/home/silicoin/silicoin-blockchain/venv/bin/:$PATH
 WORKDIR /home/silicoin/silicoin-blockchain
 
-ADD --chown=1000:1000 ./satellite.config.yaml satellite.config.yaml
 ADD --chown=1000:1000 ./entrypoint.sh entrypoint.sh
 
 ENTRYPOINT ["bash", "./entrypoint.sh"]
+
+EXPOSE 55400
+

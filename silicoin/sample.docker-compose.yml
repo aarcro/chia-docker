@@ -17,13 +17,11 @@ services:
             - sekrit:/home/silicoin/.local
             - /mnt/chia_plots/0:/chia_plots0
             - /mnt/chia_plots/1:/chia_plots1
-            - /home/user/.silicoin:/home/silicoin/.silicoin
+            - /home/user/.silicoin:/home/silicoin/.chia
         environment:
             keys: none
             log_level: INFO
             plots_dir: /chia_plots0:/chia_plots1
-            satellite_region: "${satellite_region:-us}"
-            satellite_key: ""
         # Make interactive -- Attach to provide keys
         stdin_open: true
         tty: true
@@ -34,7 +32,7 @@ services:
         volumes:
             - /mnt/plots:/plots
             - /home/user/.silicoin/mainnet/config/ssl/ca:/ca
-            - /home/user/.silicoin-plots:/home/silicoin/.silicoin
+            - /home/user/.silicoin-plots:/home/silicoin/.chia
         environment: &env
             harvester: "true"
             keys: copy
@@ -42,15 +40,10 @@ services:
             farmer_port: 6885
             ca: /ca
             log_level: INFO
-            satellite_region: "${satellite_region:-us}"
-            satellite_key: ""
 
     plots2:
         <<: *plots
         volumes:
             - /mnt/plots2:/plots
             - /home/user/.silicoin/mainnet/config/ssl/ca:/ca
-            - /home/user/.silicoin-plots2:/home/silicoin/.silicoin
-        environment:
-            <<: *env
-            satellite_key: ""
+            - /home/user/.silicoin-plots2:/home/silicoin/.chia
