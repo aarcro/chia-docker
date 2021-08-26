@@ -30,6 +30,10 @@ WORKDIR /home/mass/
 ADD --chown=1000:1000 ./bin/* bin/
 ADD --chown=1000:1000 ./wallet-config.json .
 ADD --chown=1000:1000 ./miner-config.json .
+ADD --chown=1000:1000 ./fractal-config.json .
 ADD --chown=1000:1000 ./entrypoint.sh .
 
 ENTRYPOINT ["bash", "./entrypoint.sh"]
+
+# pool port for connecting fractal miners (Probably don't expose to internet)
+EXPOSE 9690

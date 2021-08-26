@@ -10,7 +10,7 @@
             "92.13.180.139:43453",
             "73.194.53.37:43453"
         ],
-      "skip_upnp": true,
+        "skip_upnp": true,
         "listen_address": "tcp://0.0.0.0:43453"
     },
     "log": {

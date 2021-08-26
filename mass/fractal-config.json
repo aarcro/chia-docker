@@ -1,0 +1,12 @@
+{
+  "log": {
+    "log_dir": "/home/mass/.mass/logs",
+    "log_level": "info",
+    "disable_cprint": false
+  },
+  "miner": {
+    "proof_dir": [
+      "/plots"
+    ]
+  }
+}
