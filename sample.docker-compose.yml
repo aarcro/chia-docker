@@ -1,0 +1,88 @@
+version: '3.4'
+
+# Example - harvesters for all chains
+
+services:
+    chia:
+        build: chia-docker
+        image: chia
+        user: "${CURRENT_UID:-1000:1000}"
+        volumes:
+            - /mnt/plots:/plots
+            - /home/username/chia_ca:/ca  # Config on host
+            - /home/username/.chia:/home/chia/.chia     # New Config dir for container
+        environment:
+            harvester: "true"
+            keys: copy
+            farmer_address: 10.10.0.1
+            farmer_port: 8447
+            ca: /ca
+            log_level: INFO
+            satellite_region: "${satellite_region:-us}"
+            satellite_key: ""
+
+    chaingreen:
+        build:
+            context: chaingreen
+            args:
+              - BRANCH=1.2.1
+        image: chaingreen
+        user: "${CURRENT_UID:-1000:1000}"
+        volumes:
+            - /mnt/plots:/plots
+            - /home/username/chaingreen_ca:/ca
+            - /home/username/.chaingreen:/home/chaingreen/.chaingreen
+        environment:
+            harvester: "true"
+            keys: copy
+            farmer_address: 10.10.0.1
+            farmer_port: 8777
+            ca: /ca
+            log_level: INFO
+            satellite_region: "${satellite_region:-us}"
+            satellite_key: ""
+
+    flax:
+        build: flax
+        image: flax
+        user: "${CURRENT_UID:-1000:1000}"
+        volumes:
+            - /mnt/plots:/plots
+            - /home/username/flax_ca:/ca
+            - /home/username/.flax:/home/flax/.flax
+        environment:
+            harvester: "true"
+            keys: copy
+            farmer_address: 10.10.0.1
+            farmer_port: 6885
+            ca: /ca
+            log_level: INFO
+            satellite_region: "${satellite_region:-us}"
+            satellite_key: ""
+
+    chives:
+        build: chives
+        image: chives
+        user: "${CURRENT_UID:-1000:1000}"
+        volumes:
+            - /mnt/plots/chives:/plots
+            - /home/username/chives_ca:/ca
+            - /home/username/.chives:/home/chives/.chives
+        environment:
+            harvester: "true"
+            keys: copy
+            farmer_address: 10.10.0.1
+            farmer_port: 9647
+            ca: /ca
+            log_level: INFO
+
+    mass:
+        build: mass
+        image: mass
+        user: "${CURRENT_UID:-1000:1000}"
+        volumes:
+            - /mnt/plots:/plots
+            - /home/username/.mass:/home/mass/.mass
+        environment:
+            mode: fractal
+            miner_ip_port: 10.10.0.1:9690  # Fill in with real LAN ip for fullnode
