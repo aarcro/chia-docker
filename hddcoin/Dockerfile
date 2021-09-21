@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
-EXPOSE 8555
-EXPOSE 8444
+EXPOSE 28555
+EXPOSE 28444
 
 ENV keys="generate"
 ENV harvester="false"
@@ -40,7 +40,6 @@ RUN git clone --single-branch --branch ${BRANCH} https://github.com/felixbrucker
 ENV PATH=/home/hddcoin/hddcoin-blockchain/venv/bin/:$PATH
 WORKDIR /home/hddcoin/hddcoin-blockchain
 
-ADD --chown=1000:1000 ./satellite.config.yaml satellite.config.yaml
 ADD --chown=1000:1000 ./entrypoint.sh entrypoint.sh
 
 ENTRYPOINT ["bash", "./entrypoint.sh"]

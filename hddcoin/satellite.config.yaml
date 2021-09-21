@@ -1,3 +1,0 @@
-hddcoinConfigDirectory: /home/hddcoin/.hddcoin/mainnet
-apiKey: ${satellite_key}
-hddcoinDashboardCoreUrl: https://${satellite_region}.hddcoindashboard.com
