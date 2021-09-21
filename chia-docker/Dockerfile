@@ -13,7 +13,7 @@ ENV testnet="false"
 ENV full_node_port="null"
 ENV TZ="UTC"
 ENV log_level="WARNING"
-ARG BRANCH=1.2.4-og-pooling-1.0.2
+ARG BRANCH=1.2.6-og-pooling-1.0.2
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y gettext curl jq python3 ansible tar bash ca-certificates git openssl unzip wget python3-pip sudo acl build-essential python3-dev python3.8-venv python3.8-distutils apt nfs-common python-is-python3 vim tzdata npm && apt-get clean
 
