@@ -1,4 +1,4 @@
-# Flax fork
+# Silicoin fork
 
 Old busted: docker attach to the full node and paste/type 24 words at startup (Or do your own config thing)
 

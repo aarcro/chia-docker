@@ -36,7 +36,7 @@ VOLUME /home/flax/.local
 WORKDIR /home/flax
 USER 1000
 
-RUN echo "cloning ${BRANCH} (0.1.1)"
+RUN echo "cloning ${BRANCH} (0.1.6)"
 RUN git clone --branch ${BRANCH} https://github.com/Flax-Network/flax-blockchain.git \
 && cd flax-blockchain \
 && git submodule update --init mozilla-ca \

@@ -30,7 +30,7 @@ VOLUME /home/hddcoin/.local
 WORKDIR /home/hddcoin
 USER 1000
 
-ARG BRANCH=1.2.9.1-og-pooling-1.0.2
+ARG BRANCH=2.0.2-og-1.1.0
 RUN echo "cloning ${BRANCH}"
 RUN git clone --single-branch --branch ${BRANCH} https://github.com/felixbrucker/hddcoin-blockchain.git \
 && cd hddcoin-blockchain \
