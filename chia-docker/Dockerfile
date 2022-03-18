@@ -13,9 +13,8 @@ ENV testnet="false"
 ENV full_node_port="null"
 ENV TZ="UTC"
 ENV log_level="WARNING"
-ARG BRANCH=latest
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y gettext curl jq python3 ansible tar bash ca-certificates git openssl unzip wget python3-pip sudo acl build-essential python3-dev python3.8-venv python3.8-distutils apt nfs-common python-is-python3 vim tzdata npm && apt-get clean
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y gettext curl jq python3 ansible tar bash ca-certificates git openssl unzip wget python3-pip sudo acl build-essential python3-dev python3.8-venv python3.8-distutils apt nfs-common python-is-python3 vim tzdata nodejs && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && apt-get install -y nodejs && apt-get clean
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
@@ -29,8 +28,11 @@ RUN useradd -r -U -u 1000 chia \
 WORKDIR /home/chia
 USER 1000
 
-RUN echo "cloning ${BRANCH} 1.2.3"
-RUN git clone --branch ${BRANCH} https://github.com/aarcro/chia-blockchain.git \
+ARG BRANCH=1.3.1-og-1.1.0
+RUN echo "cloning ${BRANCH} 1.3.1"
+# RUN git clone --branch ${BRANCH} https://github.com/aarcro/chia-blockchain.git \
+# RUN git clone --single-branch --branch ${BRANCH} https://github.com/Chia-Network/chia-blockchain.git \
+RUN git clone --single-branch --branch ${BRANCH} https://github.com/foxypool/chia-blockchain.git \
 && cd chia-blockchain \
 && git submodule update --init mozilla-ca \
 && chmod +x install.sh \

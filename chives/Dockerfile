@@ -34,7 +34,7 @@ VOLUME /home/chives/.local
 WORKDIR /home/chives
 USER 1000
 
-ARG BRANCH=V1.1.904
+ARG BRANCH=1.2.11.1
 RUN echo "cloning ${BRANCH}"
 RUN git clone --single-branch --branch ${BRANCH} https://github.com/HiveProject2021/chives-blockchain.git \
 && cd chives-blockchain \

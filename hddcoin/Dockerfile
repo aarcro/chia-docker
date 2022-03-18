@@ -1,9 +1,7 @@
 FROM ubuntu:latest
 
-# Node
-EXPOSE 11444
-# Farmer
-EXPOSE 11447
+EXPOSE 28555
+EXPOSE 28444
 
 ENV keys="generate"
 ENV harvester="false"
@@ -21,28 +19,26 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteract
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
-RUN useradd -r -U -u 1000 silicoin \
-&&  usermod -aG sudo silicoin \
-&& install -o silicoin -g silicoin -m 755 -d /home/silicoin/ \
-&& install -o silicoin -g silicoin -m 755 -d /home/silicoin/.local \
+RUN useradd -r -U -u 1000 hddcoin \
+&&  usermod -aG sudo hddcoin \
+&& install -o hddcoin -g hddcoin -m 755 -d /home/hddcoin \
+&& install -o hddcoin -g hddcoin -m 755 -d /home/hddcoin/.local \
 && sed -i -e 's/ALL$/NOPASSWD:ALL/' /etc/sudoers
 # Stupid ass sudo in the install.sh
 
-VOLUME /home/silicoin/.local
-WORKDIR /home/silicoin
+VOLUME /home/hddcoin/.local
+WORKDIR /home/hddcoin
 USER 1000
 
-ARG BRANCH=v1.2.2
+ARG BRANCH=2.0.2-og-1.1.0
 RUN echo "cloning ${BRANCH}"
-RUN git clone --single-branch --branch ${BRANCH} https://github.com/silicoin-network/silicoin-blockchain.git \
-&& cd silicoin-blockchain \
-&& git submodule update --init mozilla-ca \
+RUN git clone --single-branch --branch ${BRANCH} https://github.com/felixbrucker/hddcoin-blockchain.git \
+&& cd hddcoin-blockchain \
 && chmod +x install.sh \
 && /usr/bin/sh ./install.sh
 
-
-ENV PATH=/home/silicoin/silicoin-blockchain/venv/bin/:$PATH
-WORKDIR /home/silicoin/silicoin-blockchain
+ENV PATH=/home/hddcoin/hddcoin-blockchain/venv/bin/:$PATH
+WORKDIR /home/hddcoin/hddcoin-blockchain
 
 ADD --chown=1000:1000 ./entrypoint.sh entrypoint.sh
 

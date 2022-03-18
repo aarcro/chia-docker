@@ -36,7 +36,7 @@ VOLUME /home/chaingreen/.local
 WORKDIR /home/chaingreen
 USER 1000
 
-RUN echo "cloning ${BRANCH} again"
+RUN echo "cloning ${BRANCH} again 1.2.1"
 RUN git clone --depth 1 --branch ${BRANCH} https://github.com/ChainGreenOrg/chaingreen-blockchain.git \
 && cd chaingreen-blockchain \
 && git submodule update --init mozilla-ca \
