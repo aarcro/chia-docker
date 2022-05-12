@@ -1,9 +1,9 @@
 FROM ubuntu:latest
 
 # Node
-EXPOSE 1999
+EXPOSE 33344
 # Farmer
-EXPOSE 1692
+EXPOSE 33347
 
 ENV keys="generate"
 ENV harvester="false"
@@ -26,28 +26,28 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y nodejs &
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
-RUN useradd -r -U -u 1000 staicoin \
-&&  usermod -aG sudo staicoin \
-&& install -o staicoin -g staicoin -m 755 -d /home/staicoin/ \
-&& install -o staicoin -g staicoin -m 755 -d /home/staicoin/.local \
+RUN useradd -r -U -u 1000 petroleum \
+&&  usermod -aG sudo petroleum \
+&& install -o petroleum -g petroleum -m 755 -d /home/petroleum/ \
+&& install -o petroleum -g petroleum -m 755 -d /home/petroleum/.local \
 && sed -i -e 's/ALL$/NOPASSWD:ALL/' /etc/sudoers
 # Stupid ass sudo in the install.sh
 
-VOLUME /home/staicoin/.local
-WORKDIR /home/staicoin
+VOLUME /home/petroleum/.local
+WORKDIR /home/petroleum
 USER 1000
 
-ARG BRANCH=1.1.3
+ARG BRANCH=1.0.14
 RUN echo "cloning ${BRANCH}"
-RUN git clone --single-branch --branch ${BRANCH} https://github.com/STATION-I/staicoin-blockchain.git \
-&& cd staicoin-blockchain \
+RUN git clone --single-branch --branch ${BRANCH} https://github.com/Petroleum-Network/petroleum-blockchain.git \
+&& cd petroleum-blockchain \
 && git submodule update --init mozilla-ca \
 && chmod +x install.sh \
 && /usr/bin/sh ./install.sh
 
 
-ENV PATH=/home/staicoin/staicoin-blockchain/venv/bin/:$PATH
-WORKDIR /home/staicoin/staicoin-blockchain
+ENV PATH=/home/petroleum/petroleum-blockchain/venv/bin/:$PATH
+WORKDIR /home/petroleum/petroleum-blockchain
 
 ADD --chown=1000:1000 ./entrypoint.sh entrypoint.sh
 
