@@ -28,7 +28,7 @@ RUN useradd -r -U -u 1000 chia \
 WORKDIR /home/chia
 USER 1000
 
-ARG BRANCH=1.3.1-og-1.1.0
+ARG BRANCH=1.4.0-og-1.2.0
 RUN echo "cloning ${BRANCH} 1.3.1"
 # RUN git clone --branch ${BRANCH} https://github.com/aarcro/chia-blockchain.git \
 # RUN git clone --single-branch --branch ${BRANCH} https://github.com/Chia-Network/chia-blockchain.git \
