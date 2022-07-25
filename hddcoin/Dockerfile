@@ -30,9 +30,11 @@ VOLUME /home/hddcoin/.local
 WORKDIR /home/hddcoin
 USER 1000
 
-ARG BRANCH=2.0.2-og-1.1.0
+ARG BRANCH=2.0.2
 RUN echo "cloning ${BRANCH}"
-RUN git clone --single-branch --branch ${BRANCH} https://github.com/felixbrucker/hddcoin-blockchain.git \
+# Foxy shutting down the pool effective 2022-08-20
+# RUN git clone --single-branch --branch ${BRANCH} https://github.com/felixbrucker/hddcoin-blockchain.git \
+RUN git clone --single-branch --branch ${BRANCH} https://github.com/HDDcoin-Network/hddcoin-blockchain.git \
 && cd hddcoin-blockchain \
 && chmod +x install.sh \
 && /usr/bin/sh ./install.sh
