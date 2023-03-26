@@ -37,7 +37,7 @@ VOLUME /home/petroleum/.local
 WORKDIR /home/petroleum
 USER 1000
 
-ARG BRANCH=1.0.14
+ARG BRANCH=1.0.16
 RUN echo "cloning ${BRANCH}"
 RUN git clone --single-branch --branch ${BRANCH} https://github.com/Petroleum-Network/petroleum-blockchain.git \
 && cd petroleum-blockchain \
