@@ -1,7 +1,3 @@
-if [[ -n "${TZ}" ]]; then
-  echo "Setting timezone to ${TZ}"
-  sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ | sudo tee /etc/timezone
-fi
 
 . ./activate
 

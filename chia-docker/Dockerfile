@@ -28,7 +28,7 @@ RUN useradd -r -U -u 1000 chia \
 WORKDIR /home/chia
 USER 1000
 
-ARG BRANCH=1.7.1-og-1.2.0
+ARG BRANCH=1.8.1-og-1.4.0
 RUN echo "cloning ${BRANCH}"
 # RUN git clone --branch ${BRANCH} https://github.com/aarcro/chia-blockchain.git \
 # RUN git clone --single-branch --branch ${BRANCH} https://github.com/Chia-Network/chia-blockchain.git \
@@ -38,17 +38,10 @@ RUN git clone --single-branch --branch ${BRANCH} https://github.com/foxypool/chi
 && chmod +x install.sh \
 && /usr/bin/sh ./install.sh
 
-USER 0
-RUN npm install --global npm
-RUN echo "Moar satellite"
-RUN npm install --global chia-dashboard-satellite
-
-USER 1000
-
 ENV PATH=/home/chia/chia-blockchain/venv/bin/:$PATH
 WORKDIR /home/chia/chia-blockchain
 
-ADD --chown=1000:1000 ./satellite.config.yaml satellite.config.yaml
+# ADD --chown=1000:1000 ./satellite.config.yaml satellite.config.yaml
 ADD --chown=1000:1000 ./entrypoint.sh entrypoint.sh
 
 ENTRYPOINT ["bash", "./entrypoint.sh"]
