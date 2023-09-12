@@ -45,14 +45,12 @@ RUN git clone --depth 1 --branch ${BRANCH} https://github.com/ChainGreenOrg/chai
 
 USER 0
 RUN npm install --global npm
-RUN npm install --global chaingreen-dashboard-satellite ; echo "1.11 or some shit"
 
 USER 1000
 
 ENV PATH=/home/chaingreen/chaingreen-blockchain/venv/bin/:$PATH
 WORKDIR /home/chaingreen/chaingreen-blockchain
 
-ADD --chown=1000:1000 ./satellite.config.yaml satellite.config.yaml
 ADD --chown=1000:1000 ./entrypoint.sh entrypoint.sh
 
 ENTRYPOINT ["bash", "./entrypoint.sh"]

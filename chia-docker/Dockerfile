@@ -28,8 +28,8 @@ RUN useradd -r -U -u 1000 chia \
 WORKDIR /home/chia
 USER 1000
 
-ARG BRANCH=1.8.1-og-1.4.0
-RUN echo "cloning ${BRANCH}"
+ARG BRANCH=2.0.1-og-1.4.0
+RUN echo "cloning ${BRANCH}, fucking do it"
 # RUN git clone --branch ${BRANCH} https://github.com/aarcro/chia-blockchain.git \
 # RUN git clone --single-branch --branch ${BRANCH} https://github.com/Chia-Network/chia-blockchain.git \
 RUN git clone --single-branch --branch ${BRANCH} https://github.com/foxypool/chia-blockchain.git \
@@ -42,6 +42,6 @@ ENV PATH=/home/chia/chia-blockchain/venv/bin/:$PATH
 WORKDIR /home/chia/chia-blockchain
 
 # ADD --chown=1000:1000 ./satellite.config.yaml satellite.config.yaml
-ADD --chown=1000:1000 ./entrypoint.sh entrypoint.sh
+ADD --chown=chia:chia ./entrypoint.sh entrypoint.sh
 
 ENTRYPOINT ["bash", "./entrypoint.sh"]
